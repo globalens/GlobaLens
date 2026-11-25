@@ -19,13 +19,25 @@
       "cache": false
     },
     "//#lint": {
-      "inputs": [".claude/hooks/**", "bench/**", "db/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
+      "inputs": [".claude/hooks/**", "bench/**", "db/**", "deploy/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
     },
     "//#typecheck": {
-      "inputs": [".claude/hooks/**", "bench/**", "db/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
+      "inputs": [".claude/hooks/**", "bench/**", "db/**", "deploy/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
     },
     "//#test": {
-      "inputs": [".claude/hooks/**", ".claude/settings.json", "db/**", "prov/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
+      "inputs": [
+        ".claude/hooks/**",
+        ".claude/settings.json",
+        "db/**",
+        "deploy/**",
+        "prov/**",
+        "docker-bake.hcl",
+        "apps/worker/Dockerfile",
+        "apps/worker/Dockerfile.dockerignore",
+        "apps/worker/entrypoint.sh",
+        "!**/__pycache__/**",
+        "!**/.ruff_cache/**"
+      ]
     }
   }
 }

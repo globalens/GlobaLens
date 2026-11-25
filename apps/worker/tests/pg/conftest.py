@@ -65,6 +65,13 @@ def database(server: Any) -> Database:
 
 
 @pytest.fixture(scope="session")
+def unmigrated(server: Any) -> Database:
+    """A database prepared with db/roles.sql and never migrated: there is no ledger in it."""
+    created = _harness.new_database(server)
+    return Database(port=server.port, name=created.name)
+
+
+@pytest.fixture(scope="session")
 def admin(database: Database) -> Iterator[Connection]:
     """The superuser's connection. The ledger's code never uses it."""
     with psycopg.connect(

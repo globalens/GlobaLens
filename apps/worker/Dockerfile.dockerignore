@@ -1,0 +1,14 @@
+# The build context of apps/worker/Dockerfile is the repository root. Only what the image
+# copies goes in: no .git, no .venv, no node_modules, no secrets.
+*
+!pyproject.toml
+!uv.lock
+!apps/worker/pyproject.toml
+!apps/worker/src/
+!apps/worker/entrypoint.sh
+!packages/gdelt/pyproject.toml
+!packages/gdelt/src/
+!packages/glcore/pyproject.toml
+!packages/glcore/src/
+**/__pycache__
+**/*.py[cod]

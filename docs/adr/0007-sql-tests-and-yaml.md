@@ -1,6 +1,6 @@
 # ADR-0007: SQL tests on a pinned PostgreSQL 18 image, and PyYAML for `prov/sources.yml`
 
-Status: proposed · 2026-11-15 · Phase 1 (task 8) · Spine: none
+Status: proposed · 2026-11-15 · Phase 1 (task 8) · Spine: none · the image pin moved to `db/Dockerfile` with ADR-0014
 
 ## Context: the requirement or measurement that forces a decision (link the metric/ledger entry)
 

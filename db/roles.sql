@@ -11,7 +11,7 @@
 --   psql -v ON_ERROR_STOP=1 -U postgres -d <database> -f db/roles.sql
 --
 -- It is safe to run again. It sets no password: a role created here cannot log in over the
--- network until the node's bootstrap gives it one from the secrets store (Phase 1 task 7).
+-- network until the migration step (db/migrate.sh) gives it one from the node's secret files.
 -- What each role may touch is granted by the migrations, table by table.
 
 -- The last statement below gives the connected database to migrator, so refuse the databases

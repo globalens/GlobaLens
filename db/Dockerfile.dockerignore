@@ -1,0 +1,6 @@
+# The build context of db/Dockerfile is db/. Only what the images copy goes in.
+*
+!postgresql.conf
+!roles.sql
+!migrations/
+!migrate.sh

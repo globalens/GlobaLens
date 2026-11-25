@@ -1,9 +1,11 @@
 """0001_ingest.sql against a clean PostgreSQL 18.
 
-One throwaway container per test run (the image is pinned by digest below). Each database in it
-is prepared the way production is: `db/roles.sql` as the cluster's superuser, then dbmate as the
-role `migrator`, which is not a superuser. Queries run through `psql` inside the container, so
-the only things this needs on the machine are Docker and the dbmate that mise pins.
+One throwaway container per test run, from the node's own PostgreSQL image: `db/Dockerfile`'s
+`server` target, built at the start of the run (its base is pinned by digest there). Each
+database in it is prepared the way production is: `db/roles.sql` as the cluster's superuser,
+then dbmate as the role `migrator`, which is not a superuser. Queries run through `psql` inside
+the container, so the only things this needs on the machine are Docker and the dbmate that mise
+pins.
 
 These tests need Docker, so they are not part of `mise run check`. They run under
 `mise run test` and `mise run test:db`. With Docker down they fail; they never skip.
@@ -30,13 +32,11 @@ ROOT = Path(__file__).resolve().parents[3]
 ROLES_SQL = ROOT / "db" / "roles.sql"
 SEEDGEN = ROOT / "db" / "seedgen.py"
 
-# PostgreSQL 18.6 on Debian trixie: the multi-platform index (linux/amd64 and linux/arm64), so
-# the same pin serves both node architectures and CI. Why this one: docs/adr/0007.
-# GL_TEST_PG_IMAGE points the same tests at another image, such as the one task 7 builds.
-PG_IMAGE = os.environ.get(
-    "GL_TEST_PG_IMAGE",
-    "postgres:18.6-trixie@sha256:e3d24f6906d0760bf4da0dae872415391ededefad23fd471c47dc53b0ddf3c42",
-)
+# The tests run on the image the nodes run, so PostgreSQL is pinned in one place: db/Dockerfile
+# (docs/adr/0013-node-images.md, which replaces the test-only pin of docs/adr/0007).
+# GL_TEST_PG_IMAGE points the same tests at another image instead, and then nothing is built.
+DB_DIR = ROOT / "db"
+TEST_IMAGE = "globalens-postgres:sqltest"
 
 STATES = ["listed", "fetched", "verified", "loaded", "published", "gap", "dead"]
 STREAMS = ["english", "translated"]
@@ -145,7 +145,7 @@ def server() -> Iterator[Server]:
     # Trust authentication: no password exists anywhere, the port is bound to this machine
     # only, and the container lives for one test run.
     command += ["--env", "POSTGRES_HOST_AUTH_METHOD=trust", "--publish", "127.0.0.1::5432"]
-    started = run([*command, PG_IMAGE], timeout=600)
+    started = run([*command, pg_image()], timeout=600)
     assert started.returncode == 0, started.stderr
     try:
         wait_until_ready(container)
@@ -155,6 +155,17 @@ def server() -> Iterator[Server]:
         yield Server(container=container, port=port)
     finally:
         run(["docker", "rm", "--force", "--volumes", container])
+
+
+def pg_image() -> str:
+    """The image to test: GL_TEST_PG_IMAGE if it is set, else the server image built now."""
+    named = os.environ.get("GL_TEST_PG_IMAGE")
+    if named:
+        return named
+    command = ["docker", "build", "--quiet", "--target", "server", "--tag", TEST_IMAGE]
+    built = run([*command, "--file", str(DB_DIR / "Dockerfile"), str(DB_DIR)], timeout=600)
+    assert built.returncode == 0, built.stderr
+    return TEST_IMAGE
 
 
 def wait_until_ready(container: str, seconds: int = 90) -> None:

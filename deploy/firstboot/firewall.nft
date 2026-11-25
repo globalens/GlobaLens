@@ -1,0 +1,48 @@
+# The host firewall of a GlobaLens node: deny all inbound traffic. Loaded at every boot by
+# nftables.service from /etc/nftables.conf, which the first boot writes from this file
+# (deploy/firstboot/firstboot.py), and checked against this file before Docker may start.
+#
+# Only this table is defined. The file never flushes the whole ruleset, because Docker keeps its
+# own rules in other tables, and reloading the firewall must not remove them. A packet has to
+# pass every table's chains on a hook, so another table can add a refusal but cannot undo one
+# made here.
+#
+# What still comes in, and why none of it is a service:
+#   - replies to connections the node opened (GDELT, R2, Cloudflare, the package mirrors);
+#   - the node's own loopback;
+#   - IPv6 neighbour discovery from the link, without which IPv6 does not work at all;
+#   - DHCP replies to the node's own requests, which keep its address.
+# No port is open. There is no SSH: the node is changed only through CI (CLAUDE.md), and the
+# first boot masks sshd as well. From Phase 2 one rule here admits WireGuard from the free node's
+# fixed address (plan §9).
+
+table inet globalens
+delete table inet globalens
+
+table inet globalens {
+	chain input {
+		type filter hook input priority filter; policy drop;
+
+		ct state established,related accept
+		ct state invalid drop
+		iif "lo" accept
+
+		icmpv6 type { nd-neighbor-solicit, nd-neighbor-advert, nd-router-advert } ip6 hoplimit 255 accept
+		udp sport 67 udp dport 68 accept
+		ip6 saddr fe80::/10 udp sport 547 udp dport 546 accept
+
+		counter comment "dropped: everything else"
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+
+		# The provider's metadata address serves the first boot's user-data, which carried the
+		# one-time token: no container reaches it. The node itself still may (cloud-init does).
+		ip daddr 169.254.169.254 counter drop comment "containers never reach the metadata address"
+
+		# No connection from outside reaches a container, not even through a published port:
+		# Docker publishes a port by destination NAT, which this refuses for a new connection.
+		ct state new ct status dnat counter drop comment "nothing is published"
+	}
+}

@@ -1,0 +1,175 @@
+# The paid node's stack in Phase 1 (docs/design/p1.md §4): PostgreSQL 18, the migration step,
+# the poller, two tier-1 workers, and cloudflared behind the role guard.
+#
+# No port is published. Nothing on the node listens to the outside: the first boot's firewall
+# denies all inbound traffic (deploy/firstboot), and cloudflared has no public hostname until the
+# API arrives in Phase 3. The tunnel's routes live in the edge stack (task 6), not here.
+#
+# Started by the pull deployer (task 16) from a checkout of this repository on the node:
+#
+#   docker compose --env-file /etc/globalens/node.env \
+#     -f deploy/compose/node-paid/compose.yaml up -d
+#
+# Every variable is required and has no default, so nothing runs that the node was not told to
+# run, and the node never builds an image:
+#
+#   GL_POSTGRES_IMAGE, GL_MIGRATE_IMAGE, GL_WORKER_IMAGE, GL_EDGE_IMAGE
+#                   the images by digest, from prod.lock (task 16) or a local build
+#                   (docker-bake.hcl)
+#   GL_NODE         this node's name ("paid"), written by its first boot
+#   GL_SECRETS_DIR  the folder of the node's secret files, written by its first boot
+#                   (docs/secrets.md)
+#   GL_NOW_JSON     where the role guard reads the published now.json: in production the data
+#                   plane's public https:// address of cdn/now.json, never this node's own copy
+#                   (apps/worker/src/worker/guard.py); a file under /data/store only while one
+#                   node publishes to its local store
+#
+# Memory, configuration S (§4: a 4 GB node with 2 GB of swap), as `mem_limit`s:
+#   postgres 1200m                     the plan's Postgres line
+#   poll 64m + work 2 x 320m = 704m    the plan's line is 500m for the tier-1 workers and the
+#                                      publisher together. A worker peaks at 243 MiB on the
+#                                      largest file of the fixture week (16.0 MB zip, 4,145 rows)
+#                                      and the poller's imports take 43 MiB *(research)*: measured
+#                                      once, arm64, in the worker image, by no committed script
+#                                      (docs/adr/0014). So two workers do not fit the line. Phase 1
+#                                      leaves the tier-2, API and light-jobs lines (1.05 GB)
+#                                      unused; one worker would fit
+#   migrate 128m, cloudflared 128m     out of the 0.9 GB line of the system, Docker and the
+#                                      deployer
+# A container may also use swap up to its own limit (Docker's default when memswap_limit is
+# unset), so an outlier file slows a worker down instead of killing it.
+#
+# The publisher (task 11, pull request 16) joins as one more service of the worker image:
+#   publish: {<<: *ingest, command: [publish], mem_limit: <measured>}
+# with GL_HEALTHCHECK_URL from a secret file, in the same 500m line once it is decided.
+
+name: globalens
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: 10m
+    max-file: "3"
+
+# What every container of ours has: no capability, no privilege escalation, a read-only root
+# file system with a small /tmp, and rotated logs.
+x-hardened: &hardened
+  read_only: true
+  tmpfs:
+    - /tmp:size=16m
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+  logging: *logging
+
+x-ingest: &ingest
+  <<: *hardened
+  image: ${GL_WORKER_IMAGE:?the worker image, from prod.lock or a local build}
+  restart: unless-stopped
+  depends_on:
+    migrate:
+      condition: service_completed_successfully
+  environment:
+    GL_DATABASE_URL: postgresql://worker@postgres:5432/globalens
+    PGPASSWORD_FILE: /run/secrets/worker_password
+    GL_STORE_DIR: /data/store
+  secrets: [worker_password]
+  volumes:
+    - store:/data/store
+  stop_grace_period: 30s
+
+services:
+  postgres:
+    <<: *hardened
+    image: ${GL_POSTGRES_IMAGE:?the PostgreSQL image, from prod.lock or a local build}
+    # The image's own postgres user from the start, so its entrypoint never runs as root.
+    user: "999:999"
+    tmpfs:
+      - /tmp:size=16m
+      - /var/run/postgresql:size=1m,mode=1777
+    restart: unless-stopped
+    mem_limit: 1200m
+    # Postgres is the last process the kernel should pick when the node runs out of memory.
+    # Its backends set their own score back to 0 (PG_OOM_ADJUST_*), so the kernel takes a
+    # backend before the postmaster, and the postmaster recovers.
+    oom_score_adj: -500
+    shm_size: 128m
+    environment:
+      POSTGRES_DB: globalens
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      PG_OOM_ADJUST_FILE: /proc/self/oom_score_adj
+      PG_OOM_ADJUST_VALUE: "0"
+    secrets: [postgres_password]
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: [CMD, pg_isready, -q, -h, 127.0.0.1, -U, postgres, -d, globalens]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 120s
+      start_interval: 1s
+    stop_grace_period: 60s
+
+  migrate:
+    <<: *hardened
+    image: ${GL_MIGRATE_IMAGE:?the migration image, from prod.lock or a local build}
+    restart: "no"
+    mem_limit: 128m
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGHOST: postgres
+      PGDATABASE: globalens
+    secrets: [postgres_password, migrator_password, worker_password, readonly_password]
+
+  poll:
+    <<: *ingest
+    command: [poll]
+    mem_limit: 64m
+
+  work:
+    <<: *ingest
+    command: [work]
+    mem_limit: 320m
+    deploy:
+      replicas: 2
+
+  cloudflared:
+    <<: *hardened
+    image: ${GL_EDGE_IMAGE:?the edge image, from prod.lock or a local build}
+    restart: unless-stopped
+    mem_limit: 128m
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    # No `entrypoint:` here: the image's entrypoint is the role guard (apps/worker/Dockerfile),
+    # and the guard reads the lock, now.json and this node's database before cloudflared runs.
+    environment:
+      GL_NODE: ${GL_NODE:?this node's name, which its first boot writes to /etc/globalens/node.env}
+      GL_PROD_LOCK: /etc/globalens/prod.lock
+      GL_NOW_JSON: ${GL_NOW_JSON:?where the published now.json is read (see the top of this file)}
+      GL_DATABASE_URL: postgresql://readonly@postgres:5432/globalens
+      PGPASSWORD_FILE: /run/secrets/readonly_password
+      TUNNEL_TOKEN_FILE: /run/secrets/tunnel_token
+    secrets: [readonly_password, tunnel_token]
+    volumes:
+      - ../../prod.lock:/etc/globalens/prod.lock:ro
+      - store:/data/store:ro
+
+volumes:
+  pgdata: {}
+  store: {}
+
+secrets:
+  postgres_password:
+    file: ${GL_SECRETS_DIR:?the folder of the node's secret files}/postgres_password
+  migrator_password:
+    file: ${GL_SECRETS_DIR:?the folder of the node's secret files}/migrator_password
+  worker_password:
+    file: ${GL_SECRETS_DIR:?the folder of the node's secret files}/worker_password
+  readonly_password:
+    file: ${GL_SECRETS_DIR:?the folder of the node's secret files}/readonly_password
+  tunnel_token:
+    file: ${GL_SECRETS_DIR:?the folder of the node's secret files}/tunnel_token
