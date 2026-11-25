@@ -1,0 +1,17 @@
+# What production runs. Merging a change to this file is the owner's approval, and the pull
+# deployer on each node follows it (deploy/README.md). TOML, read by the standard library.
+#
+# Phase 1 task 7 defines the two fields the role guard reads (apps/worker/src/worker/guard.py).
+# Task 16 adds the image digests and the site's commit.
+
+# The node that runs the primary-only services (cloudflared and, from later phases, the API,
+# the taste proxy, the admin app, light jobs and timers): "paid" or "free". A promotion is a
+# pull request that changes this line.
+primary = "paid"
+
+# A planned stoppage: while this table is here, the role guard keeps the listed services down
+# on the named node; removing it lets them start again. Uncomment to drill.
+#
+# [drill]
+# node = "paid"
+# services = ["cloudflared"]

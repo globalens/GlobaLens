@@ -1,0 +1,3 @@
+# firstboot.py runs on the node's own python3 before anything is installed: Debian 12 has 3.11.
+extend = "../../pyproject.toml"
+target-version = "py311"

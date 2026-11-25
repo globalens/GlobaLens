@@ -1,0 +1,13 @@
+# Test-only changes to the paid node's stack (deploy/compose/node-paid/compose.yaml), for
+# deploy/tests/docker/test_stack.py:
+#   - no internet: the poller cannot reach GDELT, so the stack makes no network call;
+#   - cloudflared prints its version instead of connecting to Cloudflare, and is not restarted,
+#     so a test can read whether the role guard handed over to it.
+networks:
+  default:
+    internal: true
+
+services:
+  cloudflared:
+    command: [cloudflared, --version]
+    restart: "no"
