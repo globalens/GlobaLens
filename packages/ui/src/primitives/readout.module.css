@@ -1,0 +1,23 @@
+/* Readout: a number over its unit (frame 1 .readout), set in a row of readouts. */
+.readout {
+  flex: 1;
+  padding: 8px 10px;
+}
+
+.readout + .readout {
+  border-inline-start: 1px solid var(--color-border-subtle);
+}
+
+.value {
+  display: block;
+  font: var(--type-readout);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-1);
+}
+
+.label {
+  font: 500 10px/14px var(--font-mono);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--color-text-3);
+}

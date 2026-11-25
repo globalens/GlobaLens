@@ -1,0 +1,25 @@
+/*
+ * The type stack, self-hosted from pinned npm packages (design note Q20; ADR-0006). One import
+ * per entry of fonts.json, in its order; fonts.test.ts keeps the two equal. Each @font-face in
+ * these stylesheets carries its unicode-range, so a browser downloads a file only when a
+ * character in that range is drawn.
+ */
+
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+@import "@fontsource-variable/newsreader/wght.css";
+@import "@fontsource/noto-serif/400.css";
+@import "@fontsource/noto-naskh-arabic/400.css";
+@import "@fontsource/noto-serif-hebrew/400.css";
+@import "@fontsource/noto-serif-devanagari/400.css";
+@import "@fontsource/noto-serif-bengali/400.css";
+@import "@fontsource/noto-serif-tamil/400.css";
+@import "@fontsource/noto-serif-telugu/400.css";
+@import "@fontsource/noto-serif-gujarati/400.css";
+@import "@fontsource/noto-serif-gurmukhi/400.css";
+@import "@fontsource/noto-serif-kannada/400.css";
+@import "@fontsource/noto-serif-malayalam/400.css";
+@import "@fontsource/noto-serif-sinhala/400.css";
+@import "@fontsource/noto-serif-thai/400.css";
+@import "@fontsource/noto-serif-georgian/400.css";
+@import "@fontsource/noto-serif-armenian/400.css";

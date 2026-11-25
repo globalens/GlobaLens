@@ -42,14 +42,39 @@ depends = ["install"]
 run = "uv run --no-sync pytest apps/worker/tests/pg"
 
 [tasks.dev]
-description = "Start the local stack. Nothing to start yet: each app's dev script arrives with the app."
+description = "Start the local stack: for now the site (next dev on apps/web, http://localhost:3000)."
 depends = ["install"]
 run = "pnpm exec turbo run dev"
 
 [tasks.e2e]
-description = "End-to-end tests. None yet: Playwright arrives with the P1 deploy task."
+description = "End-to-end tests: the site's browser checks on its built export (apps/web/e2e; ADR-0018)."
 depends = ["install"]
 run = "pnpm exec turbo run e2e"
+
+[tasks."web:build"]
+description = "Build the site's static export into apps/web/out: the first-paint globes, next build, then the per-page CSP."
+depends = ["install"]
+run = "pnpm --filter @globalens/web run build"
+
+[tasks."web:check"]
+description = "Checks on the built export: the script-policy and header check, no third-party file, Cloudflare's file limits, the font report and the size-limit budget."
+depends = ["web:build"]
+run = "pnpm --filter @globalens/web run check:export"
+
+[tasks."web:e2e"]
+description = "Browser checks on the built export, in the installed Google Chrome: first paint, plain states, story links, CSP and headers, no third-party request, axe, and the screenshots."
+depends = ["web:build"]
+run = "pnpm --filter @globalens/web run e2e"
+
+[tasks."web:repro"]
+description = "Build the site twice from clean and check that the two exports differ only in pre-rendered HTML and data."
+depends = ["install"]
+run = "pnpm --filter @globalens/web run check:repro"
+
+[tasks."fonts:coverage"]
+description = "fontTools glyph coverage of the shipped title fonts over the real fixture week in $GLOBALENS_FIXTURE_WEEK (at least 99.9% per script, 7 days)."
+depends = ["install"]
+run = 'uv run --no-sync python packages/ui/scripts/font_coverage.py --require-days 7 "${GLOBALENS_FIXTURE_WEEK:?set GLOBALENS_FIXTURE_WEEK to the fixture week}"'
 
 [tasks."bench:smoke"]
 description = "Placeholder benchmark that proves the bench:<name> wiring. Add one task per file in bench/."

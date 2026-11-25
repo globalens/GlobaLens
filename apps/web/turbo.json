@@ -1,0 +1,19 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "lint": {
+      "inputs": ["$TURBO_DEFAULT$", "!public/globe/**", "!out/**", "!test-results/**"]
+    },
+    "typecheck": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/ui/src/**", "!public/globe/**", "!out/**"]
+    },
+    "test": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/ui/src/**", "!public/globe/**", "!out/**", "!test-results/**"]
+    },
+    "build": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/packages/ui/src/**", "!public/globe/**", "!out/**", "!test-results/**"],
+      "outputs": ["out/**", "public/globe/**"]
+    }
+  }
+}

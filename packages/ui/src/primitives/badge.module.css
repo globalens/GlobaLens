@@ -1,0 +1,46 @@
+/* Badge: status in mono caps (frame 1 .badge); the block form wraps prose (frame 2, stale). */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 4px;
+  background: var(--color-surface-2);
+  color: var(--color-text-2);
+  font: var(--type-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.icon {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-lens-500);
+}
+
+.badge[data-tone="warning"] {
+  border-color: var(--color-warning-border);
+  color: var(--color-warning);
+}
+
+.badge[data-tone="warning"] .icon {
+  background: var(--color-warning);
+}
+
+.badge[data-size="block"] {
+  align-items: baseline;
+  padding: 6px 10px;
+  font: var(--type-caption);
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+}
+
+.badge[data-size="block"] .icon {
+  transform: translateY(-1px);
+}

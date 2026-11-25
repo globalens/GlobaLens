@@ -1,0 +1,79 @@
+/*
+ * The persistent globe (frames 1 and 3). The globe is centred in the area the panel (desktop) or
+ * the drawer (phone) leaves, with a radius of ring / sin(3000 km / 6371 km): see geometry.ts.
+ */
+.app {
+  --gl-inset-top: var(--layout-top-bar);
+  --gl-inset-left: var(--layout-panel);
+  --gl-inset-bottom: 0px;
+  --gl-ring: 160px;
+  --gl-radius: calc(var(--gl-ring) / 0.45367);
+  --gl-crossfade: 400ms;
+
+  position: fixed;
+  inset: 0;
+}
+
+@media (max-width: 767px) {
+  .app {
+    --gl-inset-left: 0px;
+    --gl-inset-bottom: 120px;
+    --gl-ring: 104px;
+  }
+
+  .app[data-detent="half"] {
+    --gl-inset-bottom: 50%;
+  }
+
+  .app[data-detent="full"] {
+    --gl-inset-bottom: 92%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app {
+    --gl-crossfade: 0ms;
+  }
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-void);
+}
+
+.svg {
+  position: absolute;
+  width: calc(var(--gl-radius) * 2.16);
+  height: calc(var(--gl-radius) * 2.16);
+  left: calc(var(--gl-inset-left) + (100% - var(--gl-inset-left)) / 2 - var(--gl-radius) * 1.08);
+  top: calc(var(--gl-inset-top) + (100% - var(--gl-inset-top) - var(--gl-inset-bottom)) / 2 - var(--gl-radius) * 1.08);
+  max-width: none;
+  user-select: none;
+  transition:
+    opacity var(--gl-crossfade) var(--ease-out),
+    top var(--motion-sheet) var(--ease-out);
+}
+
+.svg:not([src]) {
+  visibility: hidden;
+}
+
+.webgl {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--gl-crossfade) var(--ease-out);
+}
+
+/* WebGL drew its first frame: crossfade to it. Lost context: back to the SVG globe. */
+.app[data-webgl="ready"] .svg {
+  opacity: 0;
+}
+
+.app[data-webgl="ready"] .webgl {
+  opacity: 1;
+  pointer-events: auto;
+}
