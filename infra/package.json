@@ -1,0 +1,12 @@
+{
+  "name": "@globalens/infra",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Turborepo entry for the OpenTofu stacks and their Conftest policies. These scripts need no credentials and no network: `mise run tofu:validate` and `mise run tofu:plan` do the rest.",
+  "license": "Apache-2.0",
+  "scripts": {
+    "lint": "tofu fmt -check -recursive . && conftest fmt --check policy && uv run --no-sync ruff check . && uv run --no-sync ruff format --check .",
+    "typecheck": "pyright -p .. .",
+    "test": "uv run --no-sync pytest policy/tests"
+  }
+}

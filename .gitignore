@@ -55,6 +55,12 @@ __pycache__
 *.tfstate
 *.tfstate.*
 *.tfplan
+# Override files are never committed: the bootstrap's one-time local backend is one
+# (infra/live/bootstrap/README.md).
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
 # Render spike (lab/p1-render/prereg.md §4.3): the sample and its raw GDELT files are rebuilt, never committed
 lab/p1-render/data/
