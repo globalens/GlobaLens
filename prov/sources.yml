@@ -53,6 +53,10 @@ sources:
   #   [V]); master plan §7, sources table ("public domain"). The three flags follow from it.
   # attribution_text: none is required, but the column may not be empty and /attributions lists
   #   every source, so this is a courtesy credit. The wording is ours.
+  # Used from P1 task 12 by the site's first-paint globes: the 1:110m Admin 0 countries of
+  #   Natural Earth's vector data, version 4.1.0, through the world-atlas npm package (2.0.2,
+  #   ADR-0017), projected when the site is built. The credit line on the map names Natural
+  #   Earth and links to its site.
   - source_id: natural-earth
     name: Natural Earth, country and first-level administrative boundaries
     terms_url: https://www.naturalearthdata.com/about/terms-of-use/

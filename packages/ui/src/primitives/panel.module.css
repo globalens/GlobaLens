@@ -1,0 +1,30 @@
+/* Panel: the 360 px "In the Lens" surface (frame 1 .panel). Where it sits is the app's choice. */
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: rgb(13 18 25 / 96.5%);
+  color: var(--color-text-1);
+  font: var(--type-body);
+}
+
+.header {
+  padding: 14px 16px 12px;
+  border-block-end: 1px solid var(--color-border-subtle);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.footer {
+  display: flex;
+  gap: 14px;
+  margin-block-start: auto;
+  padding: 9px 16px;
+  border-block-start: 1px solid var(--color-border-subtle);
+  font: var(--type-caption);
+  color: var(--color-text-3);
+}

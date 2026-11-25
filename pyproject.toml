@@ -8,7 +8,14 @@ requires-python = ">=3.13,<3.14"
 dependencies = ["globalens-gdelt", "globalens-glcore", "globalens-worker"]
 
 [dependency-groups]
-dev = ["hypothesis==6.170.15", "pytest==9.2.0", "pyyaml==6.0.3", "ruff==0.17.4"]
+dev = [
+    "brotli==1.2.1",
+    "fonttools==4.68.0",
+    "hypothesis==6.170.15",
+    "pytest==9.2.0",
+    "pyyaml==6.0.3",
+    "ruff==0.17.4",
+]
 
 [tool.uv]
 package = false
@@ -41,3 +48,6 @@ typeCheckingMode = "strict"
 pythonVersion = "3.13"
 venvPath = "."
 venv = ".venv"
+# packages/ui/scripts holds plain scripts (the font check, the language table), imported by name
+# from their tests.
+extraPaths = ["packages/ui/scripts"]

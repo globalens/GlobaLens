@@ -1,0 +1,129 @@
+/*
+ * GlobaLens design tokens (master plan §4; design note §3.2, "What the frames fix for P1").
+ *
+ * The values are the visual target's, as approved on 25 November 2026 (design note §13, Q4):
+ * docs/design/p1/frame-1-desktop-viewfinder.html and frame-2-lens-list.html.
+ *
+ * Plain CSS custom properties. The colour and font names follow Tailwind 4's theme namespaces
+ * (--color-*, --font-*), so wrapping this block in `@theme` later needs no renaming. The type
+ * tokens (--type-*) are `font` shorthands for CSS Modules.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Space and surfaces: elevation is lightness. */
+  --color-void: #030509;
+  --color-canvas: #070a10;
+  --color-surface-1: #0d1219;
+  --color-surface-2: #141a22;
+  --color-surface-3: #1c232c;
+  --color-surface-inset: #0a0f15;
+
+  /* Separators and control outlines (control outlines are at least 3:1). */
+  --color-border-subtle: #272e38;
+  --color-border-strong: #38404b;
+  --color-border-control: #676f7a;
+  --color-divider: #151b23;
+
+  /* Text: tertiary is at least 5:1 everywhere. */
+  --color-text-1: #ebeff4;
+  --color-text-2: #b4bbc5;
+  --color-text-3: #8a939f;
+
+  /* The Lens, the only accent. */
+  --color-lens-300: #deff87;
+  --color-lens-500: #c3f344;
+  --color-lens-700: #759b21;
+  --color-lens-900: #233407;
+
+  /* Status: always an icon and words, never colour alone. */
+  --color-danger: #fb575d;
+  --color-warning: #fcb442;
+  --color-warning-border: #6b5320;
+
+  /* Basemap and the first-paint globe. */
+  --color-ocean: #030910;
+  --color-land: #11181f;
+  --color-coast: #2c3742;
+  --color-border-country: #232e39;
+  --color-graticule: #141d27;
+  --color-atmosphere: #478cc4;
+
+  /* Data ramps (Viewfinder; Infrared; Exposure). */
+  --color-att-0: #1a2029;
+  --color-att-1: #8a6a3e;
+  --color-att-2: #f9be78;
+  --color-att-3: #fff1dc;
+  --color-sev-0: #24101a;
+  --color-sev-1: #6b1d44;
+  --color-sev-2: #c23a6e;
+  --color-sev-3: #ff9eb8;
+  --color-exp-over: #fe9879;
+  --color-exp-over-2: #cb836d;
+  --color-exp-mid: #767b81;
+  --color-exp-under-2: #5aa1cb;
+  --color-exp-under: #59c3fe;
+
+  /* Faces. Each family is self-hosted from a pinned npm package (fonts.css, fonts.json) and
+     loaded only when a character in one of its unicode-ranges is drawn. Chinese, Japanese and
+     Korean titles use the reader's system fonts. */
+  --font-ui: "Inter Variable", system-ui, -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "SF Mono", Menlo, Monaco, Consolas, monospace;
+  --font-chrome: "Newsreader Variable", "Iowan Old Style", Palatino, Georgia, serif;
+  --font-title: "Noto Serif", "Noto Naskh Arabic", "Noto Serif Hebrew", "Noto Serif Devanagari",
+    "Noto Serif Bengali", "Noto Serif Tamil", "Noto Serif Telugu", "Noto Serif Gujarati",
+    "Noto Serif Gurmukhi", "Noto Serif Kannada", "Noto Serif Malayalam", "Noto Serif Sinhala",
+    "Noto Serif Thai", "Noto Serif Georgian", "Noto Serif Armenian", "PingFang SC", "PingFang TC",
+    "Hiragino Sans", "Hiragino Mincho ProN", "Apple SD Gothic Neo", "Microsoft YaHei", "Yu Gothic",
+    "Malgun Gothic", "Noto Serif CJK SC", "Noto Sans CJK SC", serif;
+
+  /* Type (desktop). micro and data are mono; caption, ui and body Inter; headlines Newsreader;
+     original titles Noto Serif. */
+  --type-micro: 500 11px/14px var(--font-mono);
+  --type-data: 450 12px/16px var(--font-mono);
+  --type-caption: 450 12px/16px var(--font-ui);
+  --type-ui: 550 13px/18px var(--font-ui);
+  --type-body: 400 14px/21px var(--font-ui);
+  --type-headline-sm: 550 17px/22px var(--font-chrome);
+  --type-headline: 500 22px/28px var(--font-chrome);
+  --type-title: 400 15px/21px var(--font-title);
+  --type-readout: 450 18px/22px var(--font-mono);
+  --tracking-micro: 0.07em;
+  --tracking-chip: 0.05em;
+
+  /* Layout. */
+  --layout-top-bar: 44px;
+  --layout-panel: 360px;
+  --layout-target-min: 32px;
+  --radius-control: 6px;
+  --radius-card: 8px;
+  --radius-chip: 13px;
+
+  /* Motion (plan §4): press, popover, sheet. */
+  --motion-press: 120ms;
+  --motion-popover: 180ms;
+  --motion-sheet: 280ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Phones (plan §4 type table, mobile column): larger caption, ui, body and titles. */
+@media (max-width: 767px) {
+  :root {
+    --type-caption: 450 13px/18px var(--font-ui);
+    --type-ui: 550 15px/20px var(--font-ui);
+    --type-body: 400 16px/24px var(--font-ui);
+    --type-headline-sm: 550 18px/24px var(--font-chrome);
+    --type-title: 400 16px/23px var(--font-title);
+    --layout-top-bar: 48px;
+  }
+}
+
+/* Reduced motion: transitions become cuts. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-press: 0ms;
+    --motion-popover: 0ms;
+    --motion-sheet: 0ms;
+  }
+}

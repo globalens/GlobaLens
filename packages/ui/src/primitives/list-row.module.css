@@ -1,0 +1,75 @@
+/* ListRow: one headline (frame 1 .row; frame 2 "Row anatomy"). */
+.row {
+  padding: 9px 16px 10px;
+  border-block-start: 1px solid var(--color-divider);
+}
+
+.row:first-child {
+  border-block-start: 0;
+}
+
+.title {
+  display: block;
+  font: var(--type-title);
+  color: var(--color-text-1);
+  text-decoration: none;
+}
+
+a.title:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-lens-700);
+  text-underline-offset: 3px;
+}
+
+a.title:focus-visible {
+  outline: 2px solid var(--color-lens-500);
+  outline-offset: 2px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-block-start: 4px;
+  font: var(--type-micro);
+  letter-spacing: var(--tracking-chip);
+  color: var(--color-text-3);
+}
+
+.lang {
+  padding: 0 4px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 3px;
+  color: var(--color-text-2);
+  text-transform: uppercase;
+}
+
+.out {
+  margin-inline-start: auto;
+  color: var(--color-text-2);
+}
+
+.copies {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  margin-block-start: 6px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 11px;
+  background: var(--color-surface-2);
+  font: var(--type-micro);
+  letter-spacing: 0.04em;
+  color: var(--color-text-2);
+}
+
+.copies::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--color-text-3);
+  box-shadow:
+    2px -2px 0 -1px var(--color-surface-2),
+    2px -2px 0 0 var(--color-text-3);
+}

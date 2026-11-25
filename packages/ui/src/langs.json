@@ -1,0 +1,464 @@
+[
+  {
+    "code": "eng",
+    "tag": "en",
+    "endonym": "English",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "afr",
+    "tag": "af",
+    "endonym": "Afrikaans",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "amh",
+    "tag": "am",
+    "endonym": "አማርኛ",
+    "dir": "ltr",
+    "script": "Ethi"
+  },
+  {
+    "code": "ara",
+    "tag": "ar",
+    "endonym": "العربية",
+    "dir": "rtl",
+    "script": "Arab"
+  },
+  {
+    "code": "axe",
+    "tag": "az",
+    "endonym": "Azərbaycan",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "ben",
+    "tag": "bn",
+    "endonym": "বাংলা",
+    "dir": "ltr",
+    "script": "Beng"
+  },
+  {
+    "code": "bod",
+    "tag": "bo",
+    "endonym": "བོད་སྐད་",
+    "dir": "ltr",
+    "script": "Tibt"
+  },
+  {
+    "code": "bos",
+    "tag": "bs",
+    "endonym": "Bosanski",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "bul",
+    "tag": "bg",
+    "endonym": "Български",
+    "dir": "ltr",
+    "script": "Cyrl"
+  },
+  {
+    "code": "cat",
+    "tag": "ca",
+    "endonym": "Català",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "ces",
+    "tag": "cs",
+    "endonym": "Čeština",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "dan",
+    "tag": "da",
+    "endonym": "Dansk",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "deu",
+    "tag": "de",
+    "endonym": "Deutsch",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "ell",
+    "tag": "el",
+    "endonym": "Ελληνικά",
+    "dir": "ltr",
+    "script": "Grek"
+  },
+  {
+    "code": "est",
+    "tag": "et",
+    "endonym": "Eesti",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "fas",
+    "tag": "fa",
+    "endonym": "فارسی",
+    "dir": "rtl",
+    "script": "Arab"
+  },
+  {
+    "code": "fin",
+    "tag": "fi",
+    "endonym": "Suomi",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "fra",
+    "tag": "fr",
+    "endonym": "Français",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "glg",
+    "tag": "gl",
+    "endonym": "Galego",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "guj",
+    "tag": "gu",
+    "endonym": "ગુજરાતી",
+    "dir": "ltr",
+    "script": "Gujr"
+  },
+  {
+    "code": "heb",
+    "tag": "he",
+    "endonym": "עברית",
+    "dir": "rtl",
+    "script": "Hebr"
+  },
+  {
+    "code": "hin",
+    "tag": "hi",
+    "endonym": "हिन्दी",
+    "dir": "ltr",
+    "script": "Deva"
+  },
+  {
+    "code": "hrv",
+    "tag": "hr",
+    "endonym": "Hrvatski",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "hun",
+    "tag": "hu",
+    "endonym": "Magyar",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "hye",
+    "tag": "hy",
+    "endonym": "Հայերեն",
+    "dir": "ltr",
+    "script": "Armn"
+  },
+  {
+    "code": "ind",
+    "tag": "id",
+    "endonym": "Indonesia",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "isl",
+    "tag": "is",
+    "endonym": "Íslenska",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "ita",
+    "tag": "it",
+    "endonym": "Italiano",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "jpn",
+    "tag": "ja",
+    "endonym": "日本語",
+    "dir": "ltr",
+    "script": "Jpan"
+  },
+  {
+    "code": "kan",
+    "tag": "kn",
+    "endonym": "ಕನ್ನಡ",
+    "dir": "ltr",
+    "script": "Knda"
+  },
+  {
+    "code": "kat",
+    "tag": "ka",
+    "endonym": "ქართული",
+    "dir": "ltr",
+    "script": "Geor"
+  },
+  {
+    "code": "kaz",
+    "tag": "kk",
+    "endonym": "Қазақ тілі",
+    "dir": "ltr",
+    "script": "Cyrl"
+  },
+  {
+    "code": "kor",
+    "tag": "ko",
+    "endonym": "한국어",
+    "dir": "ltr",
+    "script": "Kore"
+  },
+  {
+    "code": "lav",
+    "tag": "lv",
+    "endonym": "Latviešu",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "lit",
+    "tag": "lt",
+    "endonym": "Lietuvių",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "mal",
+    "tag": "ml",
+    "endonym": "മലയാളം",
+    "dir": "ltr",
+    "script": "Mlym"
+  },
+  {
+    "code": "mar",
+    "tag": "mr",
+    "endonym": "मराठी",
+    "dir": "ltr",
+    "script": "Deva"
+  },
+  {
+    "code": "mkd",
+    "tag": "mk",
+    "endonym": "Македонски",
+    "dir": "ltr",
+    "script": "Cyrl"
+  },
+  {
+    "code": "mon",
+    "tag": "mn",
+    "endonym": "Монгол",
+    "dir": "ltr",
+    "script": "Cyrl"
+  },
+  {
+    "code": "msa",
+    "tag": "ms",
+    "endonym": "Melayu",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "nep",
+    "tag": "ne",
+    "endonym": "नेपाली",
+    "dir": "ltr",
+    "script": "Deva"
+  },
+  {
+    "code": "nld",
+    "tag": "nl",
+    "endonym": "Nederlands",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "nno",
+    "tag": "nn",
+    "endonym": "Norsk nynorsk",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "nor",
+    "tag": "no",
+    "endonym": "Norsk",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "pan",
+    "tag": "pa",
+    "endonym": "ਪੰਜਾਬੀ",
+    "dir": "ltr",
+    "script": "Guru"
+  },
+  {
+    "code": "pol",
+    "tag": "pl",
+    "endonym": "Polski",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "por",
+    "tag": "pt",
+    "endonym": "Português",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "ron",
+    "tag": "ro",
+    "endonym": "Română",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "rus",
+    "tag": "ru",
+    "endonym": "Русский",
+    "dir": "ltr",
+    "script": "Cyrl"
+  },
+  {
+    "code": "sin",
+    "tag": "si",
+    "endonym": "සිංහල",
+    "dir": "ltr",
+    "script": "Sinh"
+  },
+  {
+    "code": "slk",
+    "tag": "sk",
+    "endonym": "Slovenčina",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "slv",
+    "tag": "sl",
+    "endonym": "Slovenščina",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "som",
+    "tag": "so",
+    "endonym": "Soomaali",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "spa",
+    "tag": "es",
+    "endonym": "Español",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "sqi",
+    "tag": "sq",
+    "endonym": "Shqip",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "srp",
+    "tag": "sr",
+    "endonym": "Српски",
+    "dir": "ltr",
+    "script": "Cyrl"
+  },
+  {
+    "code": "swa",
+    "tag": "sw",
+    "endonym": "Kiswahili",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "swe",
+    "tag": "sv",
+    "endonym": "Svenska",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "tam",
+    "tag": "ta",
+    "endonym": "தமிழ்",
+    "dir": "ltr",
+    "script": "Taml"
+  },
+  {
+    "code": "tel",
+    "tag": "te",
+    "endonym": "తెలుగు",
+    "dir": "ltr",
+    "script": "Telu"
+  },
+  {
+    "code": "tha",
+    "tag": "th",
+    "endonym": "ไทย",
+    "dir": "ltr",
+    "script": "Thai"
+  },
+  {
+    "code": "tur",
+    "tag": "tr",
+    "endonym": "Türkçe",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "ukr",
+    "tag": "uk",
+    "endonym": "Українська",
+    "dir": "ltr",
+    "script": "Cyrl"
+  },
+  {
+    "code": "urd",
+    "tag": "ur",
+    "endonym": "اردو",
+    "dir": "rtl",
+    "script": "Arab"
+  },
+  {
+    "code": "vie",
+    "tag": "vi",
+    "endonym": "Tiếng Việt",
+    "dir": "ltr",
+    "script": "Latn"
+  },
+  {
+    "code": "zho",
+    "tag": "zh",
+    "endonym": "中文",
+    "dir": "ltr",
+    "script": "Hani"
+  }
+]

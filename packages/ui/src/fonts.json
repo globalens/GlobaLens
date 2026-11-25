@@ -1,0 +1,28 @@
+{
+  "$comment": "The type stack (master plan §4; design note §3.2 and §9 task 12; Q20). Every face is a pinned Fontsource package, self-hosted through the static export and loaded by unicode-range. ui: the chrome's three variable faces (exact 450/550 weights). titles: original headlines, in this order in --font-title; scripts are ISO 15924 codes, and packages/ui/scripts/font_coverage.py checks each one over the fixture week. systemFallbacks: CJK titles use the reader's own fonts.",
+  "ui": [
+    { "family": "Inter Variable", "package": "@fontsource-variable/inter", "css": "wght.css", "role": "ui" },
+    { "family": "JetBrains Mono Variable", "package": "@fontsource-variable/jetbrains-mono", "css": "wght.css", "role": "mono" },
+    { "family": "Newsreader Variable", "package": "@fontsource-variable/newsreader", "css": "wght.css", "role": "chrome" }
+  ],
+  "titles": [
+    { "family": "Noto Serif", "package": "@fontsource/noto-serif", "css": "400.css", "scripts": ["Latn", "Cyrl", "Grek"] },
+    { "family": "Noto Naskh Arabic", "package": "@fontsource/noto-naskh-arabic", "css": "400.css", "scripts": ["Arab"] },
+    { "family": "Noto Serif Hebrew", "package": "@fontsource/noto-serif-hebrew", "css": "400.css", "scripts": ["Hebr"] },
+    { "family": "Noto Serif Devanagari", "package": "@fontsource/noto-serif-devanagari", "css": "400.css", "scripts": ["Deva"] },
+    { "family": "Noto Serif Bengali", "package": "@fontsource/noto-serif-bengali", "css": "400.css", "scripts": ["Beng"] },
+    { "family": "Noto Serif Tamil", "package": "@fontsource/noto-serif-tamil", "css": "400.css", "scripts": ["Taml"] },
+    { "family": "Noto Serif Telugu", "package": "@fontsource/noto-serif-telugu", "css": "400.css", "scripts": ["Telu"] },
+    { "family": "Noto Serif Gujarati", "package": "@fontsource/noto-serif-gujarati", "css": "400.css", "scripts": ["Gujr"] },
+    { "family": "Noto Serif Gurmukhi", "package": "@fontsource/noto-serif-gurmukhi", "css": "400.css", "scripts": ["Guru"] },
+    { "family": "Noto Serif Kannada", "package": "@fontsource/noto-serif-kannada", "css": "400.css", "scripts": ["Knda"] },
+    { "family": "Noto Serif Malayalam", "package": "@fontsource/noto-serif-malayalam", "css": "400.css", "scripts": ["Mlym"] },
+    { "family": "Noto Serif Sinhala", "package": "@fontsource/noto-serif-sinhala", "css": "400.css", "scripts": ["Sinh"] },
+    { "family": "Noto Serif Thai", "package": "@fontsource/noto-serif-thai", "css": "400.css", "scripts": ["Thai"] },
+    { "family": "Noto Serif Georgian", "package": "@fontsource/noto-serif-georgian", "css": "400.css", "scripts": ["Geor"] },
+    { "family": "Noto Serif Armenian", "package": "@fontsource/noto-serif-armenian", "css": "400.css", "scripts": ["Armn"] }
+  ],
+  "systemFallbacks": {
+    "cjk": ["PingFang SC", "Hiragino Sans", "Apple SD Gothic Neo", "Microsoft YaHei", "Noto Sans CJK SC"]
+  }
+}

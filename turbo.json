@@ -11,21 +11,27 @@
     "lint": {},
     "typecheck": {},
     "test": {},
+    "build": {
+      "outputs": ["out/**", "public/globe/**"],
+      "env": ["GLOBALENS_BUILD_COMMIT"]
+    },
     "dev": {
       "cache": false,
       "persistent": true
     },
     "e2e": {
+      "dependsOn": ["build"],
       "cache": false
     },
     "//#lint": {
-      "inputs": [".claude/hooks/**", "bench/**", "db/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
+      "inputs": [".claude/hooks/**", "bench/**", "db/**", "packages/ui/scripts/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
     },
     "//#typecheck": {
-      "inputs": [".claude/hooks/**", "bench/**", "db/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
+      "inputs": [".claude/hooks/**", "bench/**", "db/**", "packages/ui/scripts/**", "packages/gdelt/src/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
     },
     "//#test": {
-      "inputs": [".claude/hooks/**", ".claude/settings.json", "db/**", "prov/**", "!**/__pycache__/**", "!**/.ruff_cache/**"]
+      "inputs": [".claude/hooks/**", ".claude/settings.json", "db/**", "prov/**", "packages/ui/scripts/**", "packages/ui/src/fonts.json", "packages/ui/src/langs.json", "packages/ui/package.json", "packages/gdelt/src/**", "!**/__pycache__/**", "!**/.ruff_cache/**"],
+      "env": ["GLOBALENS_FIXTURE_WEEK"]
     }
   }
 }

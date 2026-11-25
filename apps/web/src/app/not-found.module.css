@@ -1,0 +1,30 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  max-width: 560px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.title {
+  margin: 0;
+  font: var(--type-headline);
+  color: var(--color-text-1);
+}
+
+.body {
+  margin: 0;
+  font: var(--type-body);
+  color: var(--color-text-2);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--layout-target-min);
+  color: var(--color-lens-300);
+}

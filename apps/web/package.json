@@ -5,10 +5,35 @@
   "description": "The site: a Next.js static export with the persistent globe (P1 task 12).",
   "license": "Apache-2.0",
   "type": "module",
-  "exports": "./src/index.ts",
   "scripts": {
+    "dev": "node scripts/gen-globes.ts && NEXT_TELEMETRY_DISABLED=1 next dev",
+    "build": "node scripts/gen-globes.ts && NEXT_TELEMETRY_DISABLED=1 next build && node scripts/csp-postexport.ts",
+    "check:export": "node scripts/check-export.ts && size-limit",
+    "check:repro": "node scripts/check-repro.ts",
+    "e2e": "playwright test",
+    "serve": "node scripts/serve.ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
+  },
+  "dependencies": {
+    "@globalens/ui": "workspace:*",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "@size-limit/file": "14.3.0",
+    "@types/d3-geo": "3.1.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/topojson-client": "3.1.5",
+    "@types/topojson-specification": "1.0.5",
+    "d3-geo": "3.1.2",
+    "size-limit": "14.3.0",
+    "topojson-client": "3.1.0",
+    "world-atlas": "2.0.2"
   }
 }

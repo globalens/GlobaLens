@@ -1,0 +1,6 @@
+{
+  "$comment": "Hosts the site knows (design note Q22, §12.1). One build serves preview and production: the page picks its data plane from its own hostname (src/data/base.ts), and the CSP's connect-src names these hosts (scripts/csp-postexport.ts). The workers.dev and r2.dev addresses do not exist until Cloudflare is set up; until then they are null, and a deployed page would say it could not load the latest data. A local build reads /data/ on its own origin.",
+  "production": { "site": null, "dataPlane": null },
+  "preview": { "siteSuffix": null, "dataPlane": null },
+  "connect": ["https://tiles.openfreemap.org"]
+}

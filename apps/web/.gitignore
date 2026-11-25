@@ -1,0 +1,5 @@
+# Written by the build and the browser tests; never committed.
+/public/globe/
+/next-env.d.ts
+/test-results/
+/playwright-report/

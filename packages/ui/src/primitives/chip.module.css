@@ -1,0 +1,48 @@
+/* Chip: a toggle with its key (frame 1 .chip). 26 px drawn, 32 px to the pointer. */
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-chip);
+  background: transparent;
+  color: var(--color-text-2);
+  font: var(--type-micro);
+  letter-spacing: var(--tracking-chip);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--motion-press) var(--ease-out), border-color var(--motion-press) var(--ease-out);
+}
+
+.chip::after {
+  content: "";
+  position: absolute;
+  inset: -4px 0;
+}
+
+.chip kbd {
+  font: inherit;
+  color: var(--color-text-3);
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--color-lens-500);
+  background: var(--color-lens-900);
+  color: var(--color-text-1);
+}
+
+.chip[aria-pressed="true"] kbd {
+  color: var(--color-lens-300);
+}
+
+.chip:hover {
+  border-color: var(--color-lens-300);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--color-lens-500);
+  outline-offset: 2px;
+}
