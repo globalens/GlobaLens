@@ -144,5 +144,5 @@ The prior is prereg §3. C2 and the overall prior for GO (about 50%) are scored 
 
 1. **The phone half.** It needs a reference Android to be named (design note Q2). A prior for that device goes into prereg §11 before its first run, and `./run.sh phone` prints the steps.
 2. **ADR-0002, the final calibration row, this note's final form and the short post.** All wait for the phone.
-3. **Design note Q3** asks whether tasks 13 and 14 may start once "the M3 Pro passes with Chrome's 6× throttle as well". The pre-registration reads that as ≥ 30 fps p50 at 100k under the stand-in, and the stand-in gave 120.5. Q3 is still the owner's to answer.
+3. **Design note Q3** asks whether tasks 13 and 14 may start once "the M3 Pro passes with Chrome's 6× throttle as well". The pre-registration reads that as ≥ 30 fps p50 at 100k under the stand-in, and the stand-in gave 120.5. The owner approved Q3 on 25 November 2026 (design note §13), so tasks 13 and 14 may start on the desktop result. The GO decision is unchanged: it waits for the phone.
 4. **Upstream.** The arc culling in deck.gl's globe view may be worth a minimal reproduction. Filing one is a public post, so it waits for the owner's OK.
